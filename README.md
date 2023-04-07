@@ -1,4 +1,5 @@
-# s23wb34vanamala
-added read me
-# rendered link
-https://s23wb34vanamala.onrender.com
+ # github link
+ https://github.com/vanamalapk/s23db34vanamala.git 
+ # render link
+ https://s23db34vanamala.onrender.com
+ 
