@@ -2,14 +2,14 @@ extends layout
 
 block content
   h1= title
-  - let Nresults = [{notebookName:"Chemistry",noteBookPages:"100",notebookCost:"2$"},{notebookName:"Mathematics",noteBookPages:"200",notebookCost:"5$"},{notebookName:"Physics",noteBookPages:"150",notebookCost:"6.23$"}]
+  - let items = results
   div(class="container-fluid")
     div(class="row")
-      each item,index in Nresults
+      each item,index in items
         div(class="col-sm-2",onClick=`buy(${index})`)
-          p Name of the book is #{item.notebookName}
+          p Name of the book is #{item.noteBookName}
           p Note Book Pages are #{item.noteBookPages}
-          p Cost of the book is #{item.notebookCost}
+          p Cost of the book is #{item.noteBookCost}
   script.
     function buy(N) {
       N=N+1;

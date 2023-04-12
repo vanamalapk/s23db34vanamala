@@ -2,8 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 /* GET Notebook details */
-router.get('/', function(req, res, next) {
-  res.render('notebook', { title: 'Search Results of Notebook' });
-});
-
+const Notebook_controlers = require('../controllers/notebook');
+router.get('/',Notebook_controlers.notebook_view_all_Page);
 module.exports = router;
