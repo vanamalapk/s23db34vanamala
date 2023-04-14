@@ -4,9 +4,9 @@ exports.notebook_list = function(req, res) {
 res.send('NOT IMPLEMENTED: notebook list');
 };
 // for a specific Costume.
-exports.notebook_detail = function(req, res) {
-res.send('NOT IMPLEMENTED: notebook detail: ' + req.params.id);
-};
+// exports.notebook_detail = function(req, res) {
+// res.send('NOT IMPLEMENTED: notebook detail: ' + req.params.id);
+// };
 // Handle Costume create on POST.
 exports.notebook_create_post = function(req, res) {
 res.send('NOT IMPLEMENTED: Notebook create POST');
@@ -59,4 +59,44 @@ res.status(500);
 res.send(`{"error": ${err}}`);
 }
 };
+
+// for a specific Drink.
+exports.notebook_detail = async function(req, res) {
+    console.log("detail" + req.params.id)
+    try {
+    result = await notebook.findById( req.params.id)
+    res.send(result)
+    } catch (error) {
+    res.status(500)
+    res.send(`{"error": document for id ${req.params.id} not found`);
+    }
+    };
     
+
+
+    // Handle Drink update form on PUT.
+exports.notebook_update_put = async function(req, res) {
+ console.log(`update on id ${req.params.id} with body
+${JSON.stringify(req.body)}`)
+ try {
+ let toUpdate = await notebook.findById( req.params.id)
+ if(req.body.checkboxsale) 
+   toUpdate.sale = true;
+ else 
+   toUpdate.same = false;
+ // Do updates of properties
+ if(req.body.noteBookName)
+   toUpdate.noteBookName = req.body.noteBookName;
+ if(req.body.noteBookPages) 
+   toUpdate.noteBookPages = req.body.noteBookPages;
+ if(req.body.noteBookCost) 
+   toUpdate.noteBookCost = req.body.noteBookCost;
+ let result = await toUpdate.save();
+ console.log("Sucess " + result)
+ res.send(result)
+ } catch (err) {
+ res.status(500)
+ res.send(`{"error": ${err}: Update for id ${req.params.id}
+failed`);
+ }
+};
