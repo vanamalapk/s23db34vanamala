@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  h1= title
+  -let notebookid = toShow._id
+  -let noteBookName = toShow.noteBookName
+  -let noteBookPages = toShow.noteBookPages
+  -let noteBookCost = toShow.noteBookCost
+
+  div.row(class='mb-2')
+    div.mr-1 ID is
+    div #{notebookid}
+  - let actionid = "/resource/notebook/" + notebookid
+  form(id='notebookForm', action= actionid, method="PUT")
+    div.form-group
+        label.notebookAttr(for='noteBookName') notebook Name
+        input#noteBookName(type='text', name='noteBookName', value= noteBookName )
+    div.form-group
+        label.notebookAttr(for='noteBookPages') notebook Type
+        input#noteBookPages(type='text', name='noteBookPages', value= noteBookPages )
+    div.form-group
+        label.notebookAttr(for='noteBookCost') notebook cost
+        input#noteBookCost(type='number', name='noteBookCost', value= noteBookCost )
+    input(type="submit")
+  script.
+    document.forms['notebookForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+    // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method:'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Update succeded")
+        window.location.href='/notebook'
+    // TODO handle body
+      }).catch((error) => {
+    // TODO handle error
+        alert("Update failed " + error )
+      });
+    });
