@@ -1,16 +1,21 @@
 extends layout
 block content
     h1= title
-    - let noteBookName = toShow.noteBookName
-    - let noteBookPages = toShow.noteBookPages
-    - let noteBookCost = toShow.noteBookCost
+    if(toShow == null)
+        h2 No instance to detail4 
+    else
+        - let noteBookName = toShow.noteBookName
+        - let noteBookPages = toShow.noteBookPages
+        - let noteBookCost = toShow.noteBookCost
+        
         div
             div.row(id="notebookAttr")
-                div(class="notebookAttr mr-3") notebook Name is:
+                div(class="notebookAttr mr-3") notebook name  is:
                 div #{noteBookName}
             div.row
-                div(class="notebookAttr mr-3") notebook Type is:
+                div(class="notebookAttr mr-3") note book pages  is:
                 div #{noteBookPages}
             div.row
-                div(class="notebookAttr mr-3") notebook Cost is:
+                div(class="notebookAttr mr-3") notebook cost is:
                 div #{noteBookCost}
+            

@@ -4,6 +4,35 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+  Account.findOne({ username: username }, function (err, user) {
+  if (err) { return done(err); }
+  if (!user) {
+  return done(null, false, { message: 'Incorrect username.' });
+  }
+  if (!user.validPassword(password)) {
+  return done(null, false, { message: 'Incorrect password.' });
+  }
+  return done(null, user);
+  });
+ }))
+
+ // passport config
+ // Use the existing connection
+ // The Account model
+ var Account =require('./models/Account');
+ passport.use(new LocalStrategy(Account.authenticate()));
+ passport.serializeUser(Account.serializeUser());
+ passport.deserializeUser(Account.deserializeUser());
+
+
+
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var boardRouter = require('./routes/board');
@@ -29,6 +58,9 @@ mongoose = require('mongoose');
 mongoose.connect(connectionString,
 {useNewUrlParser: true,
 useUnifiedTopology: true});
+
+
+
 //Get the default connection
 var db = mongoose.connection;
 //Bind connection to error event
@@ -80,6 +112,15 @@ app.use('/board',boardRouter);
 app.use('/notebook',Nrouter);
 app.use('/seclector',Srouter);
 app.use('/resource',Res);
+
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+ }));
+ app.use(passport.initialize());
+ app.use(passport.session());
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

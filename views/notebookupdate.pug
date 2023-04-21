@@ -1,42 +1,46 @@
 extends layout
-
 block content
   h1= title
-  -let notebookid = toShow._id
-  -let noteBookName = toShow.noteBookName
-  -let noteBookPages = toShow.noteBookPages
-  -let noteBookCost = toShow.noteBookCost
+  if(toShow == null)
+       h2 No instance to delete 
+  else
+       -let carid = toShow._id
+       - let noteBookName = toShow.noteBookName
+       - let noteBookPages = toShow.noteBookPages
+       - let noteBookCost = toShow.noteBookCost
+       
 
-  div.row(class='mb-2')
-    div.mr-1 ID is
-    div #{notebookid}
-  - let actionid = "/resource/notebook/" + notebookid
-  form(id='notebookForm', action= actionid, method="PUT")
-    div.form-group
-        label.notebookAttr(for='noteBookName') notebook Name
-        input#noteBookName(type='text', name='noteBookName', value= noteBookName )
-    div.form-group
-        label.notebookAttr(for='noteBookPages') notebook Type
-        input#noteBookPages(type='text', name='noteBookPages', value= noteBookPages )
-    div.form-group
-        label.notebookAttr(for='noteBookCost') notebook cost
-        input#noteBookCost(type='number', name='noteBookCost', value= noteBookCost )
-    input(type="submit")
-  script.
-    document.forms['notebookForm'].addEventListener('submit', (event) => {
-      event.preventDefault();
-    // TODO do something here to show user that form is being submitted
-      fetch(event.target.action, {
-        method:'PUT',
-        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
-      }).then((resp) => {
-        return resp.json(); // or resp.text() or whatever the server sends
-      }).then((body) => {
-        alert("Update succeded")
-        window.location.href='/notebook'
-    // TODO handle body
-      }).catch((error) => {
-    // TODO handle error
-        alert("Update failed " + error )
-      });
-    });
+       div.row(class='mb-2')
+           div.mr-1 ID is
+           div #{carid}
+       - let actionid = "/resource/car/" + carid
+       form(id='CarForm', action= actionid, method="PUT")
+           div.form-group
+               label.carAttr(for='noteBookName') Car color
+               input#noteBookName(type='text', name='noteBookName', value= noteBookName )
+           div.form-group
+               label.carAttr(for='noteBookPages') Car Type
+               input#noteBookPages(type='text', name='noteBookPages', value= noteBookPages )
+           div.form-group
+               label.carAttr(for='noteBookCost') Car cost
+               input#noteBookCost(type='text', name='noteBookCost', value= noteBookCost )
+           
+           input(type="submit")
+       script.
+           document.forms['CarForm'].addEventListener('submit', (event) => {
+           event.preventDefault();
+           // TODO do something here to show user that form is being submitted
+           fetch(event.target.action, {
+               method:'PUT',
+               body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+           }).then((resp) => {
+               return resp.json(); // or resp.text() or whatever the server sends
+           }).then((body) => {
+               alert("Update succeded")
+               window.location.href='/Car'
+           // TODO handle body
+           }).catch((error) => {
+           // TODO handle error
+               alert("Update failed " + error )
+           });
+           })

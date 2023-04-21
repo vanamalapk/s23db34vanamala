@@ -7,8 +7,15 @@ a {
   color: #00B7FF;
 }
 
-.notebookAttr {
-  background-color: aquamarine;
-  width: 120px;
-  }
-  
+.notebookAttr{
+  background-color: brown;
+  color:aquamarine;
+  font:14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: beige;
+}
+input{
+  color: darkblue;
+  background-color:grey;
+  font-size: larger;
+  font-weight: bolder;
+}
