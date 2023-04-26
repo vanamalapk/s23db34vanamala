@@ -3,32 +3,23 @@ extends layout
 block content
   h1= title
   - let items = results
+          button.btn( class="btn-success", onclick=`dispatch(\"/notebook/create")`) Create
   div(class="container-fluid")
     div(class="row")
       each item,index in items
+        - let destination = `dispatch(\"/notebook/update?id=${item._id}\")`
+        - let destination2 = `dispatch(\"/notebook/delete?id=${item._id}\")`
+        - let destination3 = `dispatch(\"/notebook/detail?id=${item._id}\")`
         div(class="col-sm-2",onClick=`buy(${index})`)
+          button.btn( class="btn-warning ml-1", onclick= destination) Update
+          button.btn( class="btn-danger ml-1", onclick= destination2) Delete
+          button.btn( class="btn-primary ml-1", onclick= destination3) Detail
           p Name of the book is #{item.noteBookName}
           p Note Book Pages are #{item.noteBookPages}
           p Cost of the book is #{item.noteBookCost}
+          //- Bonus Logic
   script.
-    function buy(N) {
-      N=N+1;
-      alert('You purchased item '+N);
+    function dispatch(path){
+      window.location.href=path
     }
-
-    extends layout
-
-block content
-  h1= title
-  -let items = results
-  div(class="container-fluid")
-   div(class="row m-1")
-    each item in items
-     - let destination = `dispatch(\"/notebook/update?id=${item._id}\")`
-     div(class="row-sm-2", class="m-1") Item #{item.noteBookName}(#{item.noteBookPages}) is #{item.noteBookCost}
-      button.btn( class="btn-primary ml-1", onclick= destination) Update
-
-  script.
-   function dispatch(path){
-     window.location.href=path
-   }  
+    

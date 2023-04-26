@@ -1,15 +1,11 @@
 extends layout
-
 block content
-  h1= title
-  p i like playing online games #{title}
-  button(type ="button" , class="btn btn-danger" onClick="reduce()") PRESS ME
-  div(id="reduce" ) REDUCE THE VALUE
-     script.
-      let count =20;
-      let change = -1;
-      function reduce() {
-        count = count + change;
-        change=change-1;
-         document.getElementById('reduce').innerHTML = 'Count is' + count +'Change is' +change;
-      }
+  if (!user)
+    a(href="/login") Login
+    br
+    a(href="/register") Register
+  if (user)
+    p You are currently logged in as #{user.username}
+    a(href="/notebook") Take me to costumes
+    br
+    a(href="/logout") Logout

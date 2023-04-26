@@ -4,7 +4,7 @@ block content
   if(toShow == null)
        h2 No instance to delete 
   else
-       -let carid = toShow._id
+       -let notebookid = toShow._id
        - let noteBookName = toShow.noteBookName
        - let noteBookPages = toShow.noteBookPages
        - let noteBookCost = toShow.noteBookCost
@@ -12,17 +12,17 @@ block content
 
        div.row(class='mb-2')
            div.mr-1 ID is
-           div #{carid}
-       - let actionid = "/resource/car/" + carid
+           div #{notebookid}
+       - let actionid = "/resource/car/" + notebookid
        form(id='CarForm', action= actionid, method="PUT")
            div.form-group
-               label.carAttr(for='noteBookName') Car color
+               label.carAttr(for='noteBookName') notebook name is
                input#noteBookName(type='text', name='noteBookName', value= noteBookName )
            div.form-group
-               label.carAttr(for='noteBookPages') Car Type
+               label.carAttr(for='noteBookPages') notebook pages
                input#noteBookPages(type='text', name='noteBookPages', value= noteBookPages )
            div.form-group
-               label.carAttr(for='noteBookCost') Car cost
+               label.carAttr(for='noteBookCost') notebook cost is
                input#noteBookCost(type='text', name='noteBookCost', value= noteBookCost )
            
            input(type="submit")
